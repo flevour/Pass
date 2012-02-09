@@ -23,6 +23,7 @@ Feature: tool
       --no-interaction -n Do not ask any interactive question.
 
     Available commands:
+      all    Lists all passwords available
       help   Displays help for a command
       list   Lists commands
     """
