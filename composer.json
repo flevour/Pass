@@ -1,9 +1,17 @@
 {
     "require": {
-        "behat/behat": ">=2.2.2"
+        "behat/behat": ">=2.2.2",
+        "symfony/class-loader": "2.1.*",
+        "symfony/console": "2.1.*"
     },
 
     "config": {
         "bin-dir": "bin/"
+    },
+    
+    "autoload": {
+        "psr-0": {
+            "Pass": "src/"
+        }
     }
 }
