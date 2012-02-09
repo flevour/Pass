@@ -1,4 +1,8 @@
 #!/usr/bin/env php
 <?php
-echo "bar\n";
-echo "foo";
+use Pass\Application;
+
+require_once(__DIR__ . '/vendor/.composer/autoload.php');
+
+$console = new Application();
+$console->run();

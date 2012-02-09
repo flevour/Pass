@@ -54,7 +54,11 @@ class FeatureContext extends BehatContext
     /** @Then /^I should get:$/ */
     public function iShouldGet(PyStringNode $string)
     {
-        if ((string) $string !== $this->output) {
+        // avoid interferences with white spaces
+        $string = str_replace(array("\n", ' '), '', (string) $string);
+        $output = str_replace(array("\n", ' '), '', $this->output);
+        
+        if ($string !== $output) {
             throw new Exception(
                 "Actual output is:\n" . $this->output
             );
