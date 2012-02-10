@@ -64,4 +64,19 @@ class FeatureContext extends BehatContext
             );
         }
     }
+
+    /**
+     * @Given /^a project file "([^"]*)" with (\d+) password[s]?$/
+     */
+    public function aProjectFileWithPasswords($filename, $nPasswords)
+    {
+        if (!file_exists('passwords')) {
+            mkdir('passwords');
+        }
+        $content = '';
+        foreach (range(1, $nPasswords) as $i) {
+            $content .= "password$i\n";
+        }
+        file_put_contents(sprintf('passwords/%s', $filename), $content);
+    }
 }

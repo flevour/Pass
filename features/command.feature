@@ -27,3 +27,13 @@ Feature: tool
       help   Displays help for a command
       list   Lists commands
     """
+
+    Scenario: Use command all
+      Given a project file "foo.yml" with 2 passwords
+      And a project file "bar.yml" with 1 password
+      When I run "php pass all"
+      Then I should get:
+      """
+      bar.yml: 1 passwords
+      foo.yml: 2 passwords
+      """
