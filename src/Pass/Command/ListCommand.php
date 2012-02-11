@@ -23,7 +23,7 @@ class ListCommand extends Command {
         $finder->files()->in('passwords');
         foreach ($finder as $file) {
             $passFile = new File($file);
-            $output->writeln(sprintf('%s: %d passwords', $file->getBasename(), $passFile->countPasswords()));
+            $output->writeln($passFile->getSummary());
         }
     }
 }

@@ -16,4 +16,8 @@ class File {
     public function countPasswords() {
         return count($this->config['data']);
     }
+    
+    public function getSummary() {
+        return sprintf('%s: %d passwords', $this->file->getBasename(), $this->countPasswords());
+    }
 }
