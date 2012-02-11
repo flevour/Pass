@@ -8,15 +8,16 @@ use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
 
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Finder\Finder;
 
 use Pass\Application;
 
 //
 // Require 3rd-party libraries here:
 //
-//   require_once 'PHPUnit/Autoload.php';
-//   require_once 'PHPUnit/Framework/Assert/Functions.php';
-//
+   require_once 'PHPUnit/Autoload.php';
+   require_once 'PHPUnit/Framework/Assert/Functions.php';
+
 
 /**
  * Features context.
@@ -78,5 +79,34 @@ class FeatureContext extends BehatContext
             $content .= "password$i\n";
         }
         file_put_contents(sprintf('passwords/%s', $filename), $content);
+        $finder = new Finder();
+        $finder->files()->in('passwords')->name($filename);
+        foreach ($finder as $file) {
+            $this->file = $file;
+        }
     }
+ 
+    /**
+     * @Given /^I wrap it in a File class$/
+     */
+    public function iWrapItInAFileClass()
+    {
+        $this->fileClass = new Pass\File($this->file);
+    }
+
+    /**
+     * @When /^I count the passwords$/
+     */
+    public function iCountThePasswords()
+    {
+        $this->result = $this->fileClass->countPasswords();
+    }
+
+    /**
+     * @Then /^I should get (\d+)$/
+     */
+    public function iShouldGet2($count)
+    {
+        assertEquals($this->result, $count);
+    }    
 }
