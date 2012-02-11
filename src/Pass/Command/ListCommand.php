@@ -6,6 +6,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Finder\Finder;
+use Pass\File;
 
 
 class ListCommand extends Command {
@@ -21,8 +22,8 @@ class ListCommand extends Command {
         $finder = new Finder();
         $finder->files()->in('passwords');
         foreach ($finder as $file) {
-            $lines = file($file->getRealpath());
-            $output->writeln(sprintf('%s: %d passwords', $file->getBasename(), count($lines)));
+            $passFile = new File($file);
+            $output->writeln(sprintf('%s: %d passwords', $file->getBasename(), $passFile->countPasswords()));
         }
     }
 }

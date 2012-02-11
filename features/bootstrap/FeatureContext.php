@@ -74,9 +74,14 @@ class FeatureContext extends BehatContext
         if (!file_exists('passwords')) {
             mkdir('passwords');
         }
-        $content = '';
+        $content = "data:\n";
         foreach (range(1, $nPasswords) as $i) {
-            $content .= "password$i\n";
+            $content .=<<<DATA
+    - type: test$i
+      user: foo
+      pass: bar
+
+DATA;
         }
         file_put_contents(sprintf('passwords/%s', $filename), $content);
         $finder = new Finder();
