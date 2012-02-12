@@ -37,3 +37,24 @@ Feature: tool
       bar.yml: 1 passwords
       foo.yml: 2 passwords
       """
+
+    Scenario: Use command show
+      Given a project file "foo.yml" with data:
+        | type | name | user | pass | host |
+        | ssh  | dev  | foo  | f00  | 127.0.0.1 |
+        | ssh  | prod | bar  | b4r  | 127.0.0.2 |
+      When I run "php pass show foo.yml"
+      Then I should get:
+      """
+      foo.yml:
+        dev:
+          user: foo
+          pass: f00
+          host: 127.0.0.1
+          connect: ssh foo@127.0.0.1
+        prod:
+          user: bar
+          pass: b4r
+          host: 127.0.0.2
+          connect: ssh bar@127.0.0.2
+      """

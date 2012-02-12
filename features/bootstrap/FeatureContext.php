@@ -113,5 +113,13 @@ DATA;
     public function iShouldGet2($count)
     {
         assertEquals($this->result, $count);
-    }    
+    }
+    
+    /**
+     * @Given /^a project file "([^"]*)" with data:$/
+     */
+    public function aProjectFileWithData($argument1, TableNode $table)
+    {
+        throw new PendingException();
+    }
 }
